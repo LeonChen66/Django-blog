@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Blog entries -->
+<div class="w3-col l8 s12 ">
+
+     <div class="w3-card-4 w3-margin w3-white">
+         <div class="w3-container">
+             {% for post in post_list %}
+        <h3><b><a style="text-decoration: none" href="{% url 'post_detail' pk=post.pk %}">　{{post.title}}　　
+        </a><span class="w3-opacity" style="font-size:15px">{{ post.created_at|date:"Y / m / d" }}</span></b></h3>
+             {% endfor %}
+    </div>
+     </div>
+
+</div>
+    {% endblock %}
+

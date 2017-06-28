@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Blog entries -->
+
+<div class="w3-col l8 s12">
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>{{post.title}}</b></h3>
+      <h5>Location : {{post.location}}</h5>
+      <h5><span class="w3-opacity">{{ post.created_at|date:"Y / m / d" }}</span></h5>
+    </div>
+
+    <div class="w3-container">
+        {% if post.photo %}
+            <img src="{{ post.photo }}" alt="" style="width:100%">
+      {% endif %}
+        <p><font face="微軟正黑體">{{post.content|safe|linebreaksbr}}</font></p>
+      <div class="w3-row">
+
+      </div>
+    </div>
+  </div>
+  <hr>
+<!-- END BLOG ENTRIES -->
+</div>
+
+{% endblock %}
