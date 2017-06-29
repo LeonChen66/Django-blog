@@ -6,7 +6,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'w3.css' %}">
 <style>
-body,h1,h2,h3,h4,h5,p {font-family: "微軟正黑體", sans-serif}
+body,h1,h2,h3,h4,h5,p {font-family:  sans-serif,"微軟正黑體"}
 </style>
 <body class="w3-light-grey">
 
@@ -17,7 +17,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Header -->
 <header class="w3-container w3-center w3-padding-32">
   <h1><b>Leon's BLOG </b></h1>
-  <p>Welcome to the blog of　<span class="w3-tag">Leon</span></p>
+  <p>Welcome to the <span class="w3-tag">Leon's </span> jottings place...</p>
   <p align="left"><span class="w3-padding-large"><b>Today:　{{ today }}</b></span></p>
   <p align="left"><span class="w3-padding-large"><b>Current time:　{{ current_time }}</b></span></p>
 </header>
@@ -55,8 +55,16 @@ and is wrapped around the whole page content, except for the footer in this exam
             Home page »
         </a>
         </b></button></p>
-        <p><button class="w3-button w3-padding-large w3-white w3-border"><b>About »</b></button></p>
-        <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>Talk »</b></button></p>
+        <p><button class="w3-button w3-padding-large w3-white w3-border"><b>
+         <a style="text-decoration: none" href="{% url 'about' %}">
+            About »
+         </a>
+        </b></button></p>
+        <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>
+        <a style="text-decoration: none" href="{% url 'talks' %}">
+            Talks »
+        </a>
+        </b></button></p>
         <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>
         <a style="text-decoration: none" href="{% url 'archives' %}">
             Archives »

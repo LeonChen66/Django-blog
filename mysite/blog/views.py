@@ -49,3 +49,23 @@ def archives(request):
         'post_list': post_list,
         'intro': intro,
     })
+
+def about(request):
+    intro = self_intro.objects.get(pk=1)
+    about = self_intro.objects.get(pk=2)
+    return render(request,'about.html',{
+        'today': str(datetime.now().strftime('%Y-%m-%d')),
+        'current_time': str(datetime.now().strftime('%H:%M:%S')),
+        'intro': intro,
+        'about': about,
+    })
+
+def talks(request):
+    intro = self_intro.objects.get(pk=1)
+    talks = self_intro.objects.get(pk=3)
+    return render(request,'talk.html',{
+        'today': str(datetime.now().strftime('%Y-%m-%d')),
+        'current_time': str(datetime.now().strftime('%H:%M:%S')),
+        'intro': intro,
+        'talks': talks,
+    })

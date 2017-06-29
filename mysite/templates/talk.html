@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Blog entries -->
+<div class="w3-col l8 s12 ">
+     <div class="w3-card-4 w3-margin w3-white">
+         <div class="w3-container">
+             <h1 style="margin-left:10%"><li><b>{{talks.title|safe}}</b></h1>
+             <br>
+             <h3 style="margin-left:15%;color:#262626">{{talks.content|safe|linebreaksbr}}</h3>
+        </div>
+     </div>
+</div>
+    {% endblock %}
