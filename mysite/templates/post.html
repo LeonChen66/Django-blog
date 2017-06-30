@@ -7,15 +7,17 @@
   <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
       <h3><b>{{post.title}}</b></h3>
-      <h5>Location : {{post.location}}</h5>
       <h5><span class="w3-opacity">{{ post.created_at|date:"Y / m / d" }}</span></h5>
     </div>
 
     <div class="w3-container">
         {% if post.photo %}
-            <img src="{{ post.photo }}" alt="" style="width:100%">
-      {% endif %}
-        <p><font face="微軟正黑體">{{post.content|safe|linebreaksbr}}</font></p>
+          <img src="{{ post.photo }}" alt="" style="width:70%">
+        {% endif %}
+      </br>
+      </br>
+        <h5>{{post.content|safe|linebreaksbr}}</h5>
+        <br><br><h5 align="right" style="color:#404040">Location : {{post.location}}</h5>
       <div class="w3-row">
 
       </div>
