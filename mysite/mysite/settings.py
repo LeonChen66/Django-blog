@@ -25,7 +25,7 @@ SECRET_KEY = 'w9t$df&%=ajidiw792d=j#=23133(@ok^ex%ik5asso7x&18&u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [leo021566.pythonanywhere.com]
+ALLOWED_HOSTS = ['leo021566.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -123,3 +123,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "templates"),
 )
+
+TIME_ZONE = 'Asia/Taipei'

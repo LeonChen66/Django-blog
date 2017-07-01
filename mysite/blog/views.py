@@ -40,6 +40,7 @@ def post_detail(request,pk):
                    'intro': intro,
                    })
 
+                   
 def archives(request):
     post_list = Post.objects.all()[::-1]
     intro = self_intro.objects.get(pk=1)
@@ -50,6 +51,7 @@ def archives(request):
         'intro': intro,
     })
 
+
 def about(request):
     intro = self_intro.objects.get(pk=1)
     about = self_intro.objects.get(pk=2)
@@ -59,6 +61,7 @@ def about(request):
         'intro': intro,
         'about': about,
     })
+
 
 def talks(request):
     intro = self_intro.objects.get(pk=1)
