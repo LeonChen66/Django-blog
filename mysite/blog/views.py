@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
 from django.http import HttpResponse
-from .models import Post, self_intro
+from .models import Post, self_intro, comment
 
 from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
@@ -15,6 +15,8 @@ def index_page(request):
     post_list = Post.objects.all()[::-1]
     paginator = Paginator(post_list,limit)
     page = request.GET.get('page')  # 获取页码
+
+
     try:
         post_list = paginator.page(page)  # 获取某页对应的记录
     except PageNotAnInteger:  # 如果页码不是个整数
@@ -33,11 +35,13 @@ def index_page(request):
 def post_detail(request,pk):
     post = Post.objects.get(pk=pk)
     intro = self_intro.objects.get(pk=1)
+    comment_blog = comment.objects.filter(link_post_id=pk)
     return render(request,'post.html',
                   {'post':post,
                    'today': str(datetime.now().strftime('%Y-%m-%d')),
                    'current_time': str(datetime.now().strftime('%H:%M:%S')),
                    'intro': intro,
+                   'commentlist':comment_blog,
                    })
 
                    
@@ -72,3 +76,22 @@ def talks(request):
         'intro': intro,
         'talks': talks,
     })
+
+
+def save(request):
+    post_list = Post.objects.all()[::-1]
+
+    username = request.POST.get('username')
+    content = request.POST.get('content')
+    pk = request.POST.get('pk')
+    link = Post.objects.get(pk=pk)
+    message = comment(link_post=link, name=username, content=content)
+    if username.strip()=="" or content.strip()=="":
+        return redirect('/index/')
+    else:
+        message.save()
+        for post in post_list:
+            n = comment.objects.filter(link_post_id=post.pk).count()
+            Post.objects.select_for_update().filter(pk=post.pk).update(comment_number=n)
+
+        return redirect('/post/%s'%pk)

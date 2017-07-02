@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from blog.views import index_page, post_detail, archives, about,talks
+from blog.views import index_page, post_detail, archives, about, talks, save
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^archives/$', archives, name='archives'),
     url(r'^about/$', about, name='about'),
     url(r'^talks/$', talks, name='talks'),
+    url(r'^save/$', save, name='save'),
 ]

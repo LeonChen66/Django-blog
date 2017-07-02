@@ -1,30 +1,286 @@
-{% extends 'base.html' %}
-{% block content %}
-<!-- Blog entries -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{% extends 'base.html' %} {% block content %}
+	<style>
+	#comments {
+	  padding-top: 12px;
+	  padding-bottom: 12px;
+	}
+	#comments h3 {
+	  font: 20px/30px 'opensans-bold', sans-serif;
+	  margin-bottom: 6px;
+	}
 
-<div class="w3-col l8 s12">
-  <!-- Blog entry -->
-  <div class="w3-card-4 w3-margin w3-white">
-    <div class="w3-container">
-      <h3><b>{{post.title}}</b></h3>
-      <h5><span class="w3-opacity">{{ post.created_at|date:"Y / m / d" }}</span></h5>
-    </div>
+	/* Comments List */
+	ol.commentlist {
+	  border-top: 1px dotted #E1E5E3;
+	   margin: 29px 0 54px 0;
+	   padding: 0;
+	}
+	.commentlist > li {
+	  position: relative;
+	   list-style: none;
+	   margin: 0;
+	   border-bottom: 1px dotted #D9DEDB;
+	   padding: 24px 0 17px 0;
+	   padding-left: 14%;
+	}
+	.commentlist li .avatar {
+	  position: absolute;
+	  left: 0px;
+	  display: block;
+	  height: 48px;
+	  width: 48px;
+	}
+	.commentlist li .avatar img {
+	  margin-top: 6px;
+	  height: 48px;
+	  width: 48px;
+	   border-radius: 100%;
+	}
+	.commentlist li .comment-info cite {
+	  font: 16px/30px 'opensans-bold', sans-serif;
+	  color: #454545;
+	}
+	.commentlist li .comment-info .comment-meta {
+	  font-size: 14px;
+	  line-height: 24px;
+	  display: block;
+	}
+	.commentlist li .comment-info .comment-meta .reply {
+	  font-family: 'opensans-bold', sans-serif;
+	}
+	.commentlist li .comment-info .comment-meta .sep {
+	  margin: 0 5px;
+	  color: #AEB6B7;
+	}
+	.commentlist li .comment-text {
+	   clear: both;
+	   margin: 18px 0 0 0;
+	  padding: 0;
+	  line-height: 30px;
+	}
 
-    <div class="w3-container">
-        {% if post.photo %}
-          <img src="{{ post.photo }}" alt="" style="width:70%">
-        {% endif %}
-      </br>
-      </br>
-        <h5>{{post.content|safe|linebreaksbr}}</h5>
-        <br><br><h5 align="right" style="color:#404040">Location : {{post.location}}</h5>
-      <div class="w3-row">
+	/* children */
+	.commentlist li ul.children {
+	  margin: 0;
+	  padding: 18px 0 0 0;
+	}
+	.commentlist li ul.children li {
+	  padding-left:  5% ;
+	  padding-top: 17px;
+	  border-top: 1px dotted #D9DEDB;
+	}
 
-      </div>
-    </div>
-  </div>
-  <hr>
-<!-- END BLOG ENTRIES -->
-</div>
+	/* comment form ----------------------------------------- */
 
-{% endblock %}
+	#comments form { margin-top: 36px; }
+	#comments form label {
+	  padding-left: 24px;
+	  width: 41.66667%;
+	  float: right;
+	}
+	#comments form div {
+	  margin: 12px 0 18px 0;
+	}
+	#comments form input,
+	#comments form textarea,
+	#comments form select {
+	  width: 58.33333%;
+	  float: left;
+	}
+	#comments form .message label {
+	  display: none;
+	}
+	#comments form textarea {
+	  width: 100%;
+	}
+	#comments form button.submit {
+	   text-transform: uppercase;
+	   letter-spacing: 2px;
+	  display: block;
+	  margin-top: 12px;
+	}
+	#comments form span.required {
+	   color: #93B876;
+	   font-size: 15px;
+	}
+
+
+	#conteneur {
+	position:relative;
+	top:0;
+	width:578px;
+	left:50%;
+	margin-left:-300px;
+	z-index:10;
+	}
+
+	input {
+	/* styles de caractères */
+	   font-family: 'open_sanssemibold';
+	font-size: 16px;
+	color: #404040;
+	/* marge et taille */
+	width: 500px;
+	height: 40px;
+	padding: 5px 10px 0px 10px;
+	margin: 0 0 20px 0;
+	/* couleur de fond */
+	background:#FFF;
+	/* bordures */
+	border:1px solid #CCC;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	outline:none;
+	}
+
+	textarea {
+	/* styles de caractères */
+	font-size: 16px;
+	color: #404040;
+	   font-family: 'open_sanssemibold';
+	/* marge taille et ombre portée */
+	width: 500px;
+	height: 120px;
+	padding: 10px 10px 0px 10px;
+	margin: 0 0 20px 0;
+	/* couleur de fond */
+	background:#FFF;
+	/* bordures */
+	border:1px solid #CCC;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	outline:none;
+	}
+
+	input[type=submit] {
+	/* position taille marges */
+	cursor: pointer;
+	width: 200px;
+	height: 40px;
+	padding: 5px 10px;
+	/* coins arrondies */
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out; /** Chrome & Safari **/
+	-moz-transition: all 0.5s ease-in-out; /** Firefox **/
+	-o-transition: all 0.5s ease-in-out; /** Opera **/
+	/* fond */
+	background-color:#31323a;
+	/* styles de texte */
+	color:#FFF;
+	font-weight:bold;
+	font-family: 'open_sanssemibold';
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	border:1px solid #CCC;
+	border-radius:5px;
+
+	}
+
+	input:focus, textarea:focus {
+	background:#FFF;
+	}
+
+	input[type=submit]:hover {
+	background: #51CE77;
+	/* styles de texte */
+	color: #FFF;
+	border: none;
+	}
+
+	input[type=submit]:active {
+	background: #51CE77;
+	/* styles de texte */
+	color: #CCC;
+	border: none;
+	}
+
+	fieldset {
+	   border: none;
+	   margin: 0;
+	   padding:0;
+	}
+
+	textarea {
+	   resize: vertical;
+	   max-height:250px;
+	   min-height:100px;
+	   border:1px solid #CCC;
+	}
+
+	#er-message{text-align:center;font-family: 'open_sanssemibold'; color:#00c1af;font-size:16px; padding-bottom:20px;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;
+	}
+
+	.glowing-border {
+	   border:5px solid #00c1af;
+	}
+
+	</style><!-- Blog entries -->
+	<div class="w3-col l8 s12">
+		<!-- Blog entry -->
+		<div class="w3-card-4 w3-margin w3-white">
+			<div class="w3-container">
+				<h3><b>{{post.title}}</b></h3>
+				<h5><span class="w3-opacity">{{ post.created_at|date:"Y / m / d" }}</span></h5>
+			</div>
+			<div class="w3-container">
+				{% if post.photo %} <img alt="" src="{{ post.photo }}" style="width:70%"> {% endif %}<br>
+				<br>
+				<h5>{{post.content|safe|linebreaksbr}}</h5><br>
+				<br>
+				<h5 align="right" style="color:#404040">Location : {{post.location}}</h5>
+				<div class="w3-row"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="w3-col l8 s12" style="float:left">
+			<div class="w3-container">
+				<!-- comment area -->
+				<div id="comments">
+					<h3>Comments</h3><!-- commentlist -->
+					{% for comment in commentlist %}
+					<ol class="commentlist">
+						<li class="depth-1">
+							<div class="avatar">{% load static %} <img alt="" class="avatar" height="50" src="{% static 'user-03.png' %}" width="50"></div>
+							<div class="comment-content">
+								<div class="comment-info">
+									<cite>{{ comment.name }}</cite>
+									<div class="comment-meta">
+										<time class="comment-time" datetime="2014-07-12T23:05">{{ comment.created_at|date:"M d, Y @ P" }}</time> <span class="sep">/</span><a class="reply" href="#">Reply</a>
+									</div>
+								</div>
+								<div class="comment-text">
+									<p>{{ comment.content }}</p>
+								</div>
+							</div>
+						</li>
+					</ol>
+					{% endfor %}
+				</div><br>
+				<!-- form area -->
+				<div class="wow bounceInRight" data-wow-offset="10" id="wrapper-A4a">
+					<div id="A4a-title-1">
+						<h3>Leave a Comment...</h3><br>
+					</div>
+				</div>
+				<form action="/save/" method="post" novalidate="novalidate">
+					{% csrf_token %} <input name="pk" type="hidden" value="{{ post.pk }}">
+					<input name="username" placeholder="Name*" type="text">
+					<br>
+					<br>
+					<textarea cols="30" maxlength="500" name="content" placeholder="Comment*" rows="8" tabindex="4"></textarea>
+					<br>
+					<br>
+					<table class="table table-striped table-bordered table-hover table-condensed"></table>
+					<input class="btn btn-success" type="submit" value="Submit">
+				</form><br>
+			</div>
+		</div><!-- END BLOG ENTRIES -->
+	</div>{% endblock %}
+</body>
+</html>

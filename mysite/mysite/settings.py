@@ -125,3 +125,4 @@ STATICFILES_DIRS = (
 )
 
 TIME_ZONE = 'Asia/Taipei'
+

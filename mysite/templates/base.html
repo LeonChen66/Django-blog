@@ -1,103 +1,71 @@
 <!DOCTYPE html>
 <html>
-<title>Leon 隨筆部落</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-{% load static %}
-<link rel="stylesheet" href="{% static 'w3.css' %}">
-<style>
-body,h1,h2,h3,h4,h5,p {font-family:  sans-serif,"微軟正黑體"}
-</style>
-<body class="w3-light-grey">
+<head>
+	<title>Leon 隨筆部落</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+		{% load static %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="{% static 'w3.css' %}" rel="stylesheet">
+</head>
+<body>
 
-<!-- w3-content defines a container for fixed size centered content,
+	<style>
+	body,h1,h2,h3,h4,h5,p {font-family:  sans-serif,"微軟正黑體"}
+	</style><!-- w3-content defines a container for fixed size centered content,
 and is wrapped around the whole page content, except for the footer in this example -->
-<div class="w3-content" style="max-width:1400px">
+	<div class="w3-content" style="max-width:1400px">
+		<!-- Header -->
+		<header class="w3-container w3-center w3-padding-32">
+			<h1><b>Leon's BLOG</b></h1>
+			<p>Welcome to the <span class="w3-tag">Leon's</span> jottings place...</p>
+			<p align="left"><span class="w3-padding-large"><b>Today:　{{ today }}</b></span></p>
+			<p align="left"><span class="w3-padding-large"><b>Current time:　{{ current_time }}</b></span></p>
+		</header><!-- Grid -->
+		<div class="w3-row">
+			<!--content Area-->
+			{% block content %} {% endblock %} <!-- Introduction menu -->
+			<div class="w3-col l4">
+				<!-- About Card -->
+				<div class="w3-card-2 w3-margin w3-margin-top">
+					<img alt="" src="https://5-t.imgbox.com/xxlaOrYX.jpg" style="width:100%">
+					<div class="w3-container w3-white">
+					<h4 align="center"><b>Introduction</b></h4>
+					<h6><b>{{ intro.content|safe }}</b></h6><img alt="" src="{{ intro.photo }}" style="width:70%"></div>
+				</div>
+				<hr>
+				<hr>
+				<!-- Labels / tags -->
+				<div class="w3-card-2 w3-margin w3-margin-top">
+					<div class="w3-container w3-padding">
+						<h4>Website Map</h4>
+					</div>
+					<div class="w3-container w3-white">
+						<p><button class="w3-button w3-padding-large w3-white w3-border"><b><a href="{% url 'home_page' %}" style="text-decoration: none">Home page »</a></b></button></p>
+						<p><button class="w3-button w3-padding-large w3-white w3-border"><b><a href="{% url 'about' %}" style="text-decoration: none">About »</a></b></button></p>
+						<p><button class="w3-button w3-padding-large w3-white w3-border"><b><a href="{% url 'talks' %}" style="text-decoration: none">Talks »</a></b></button></p>
+						<p><button class="w3-button w3-padding-large w3-white w3-border"><b><a href="{% url 'archives' %}" style="text-decoration: none">Archives »</a></b></button></p>
+					</div>
+				</div><!-- END Introduction Menu -->
+			</div><!-- END GRID -->
+		</div><br>
+		<!-- Footer -->
+		<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+			{% if post_list.has_previous %} <button class="w3-button w3-black w3-padding-large w3-margin-bottom"><a href="?page={{ post_list.previous_page_number }}">Previous</a></button> {% endif %}
+			{% if post_list.has_next %} <button class="w3-button w3-black w3-padding-large w3-margin-bottom"><a href="?page={{ post_list.next_page_number }}">Next »</a></button> {% endif %}
 
-<!-- Header -->
-<header class="w3-container w3-center w3-padding-32">
-  <h1><b>Leon's BLOG </b></h1>
-  <p>Welcome to the <span class="w3-tag">Leon's </span> jottings place...</p>
-  <p align="left"><span class="w3-padding-large"><b>Today:　{{ today }}</b></span></p>
-  <p align="left"><span class="w3-padding-large"><b>Current time:　{{ current_time }}</b></span></p>
-</header>
-
-<!-- Grid -->
-<div class="w3-row">
-<!--content Area-->
-    {% block content %}
-
-    {% endblock %}
-
-    <!-- Introduction menu -->
-<div class="w3-col l4">
-  <!-- About Card -->
-  <div class="w3-card-2 w3-margin w3-margin-top">
-    <img src="https://5-t.imgbox.com/xxlaOrYX.jpg   " alt="" style="width:100%">
-    <div class="w3-container w3-white">
-        <h4 align="center"><b>Introduction</b></h4>
-        <h6><b>{{ intro.content|safe }}</b></h6>
-        <img src="{{ intro.photo }}" alt="" style="width:70%">
-    </div>
-  </div><hr>
-
-
-  <hr>
-
-  <!-- Labels / tags -->
-  <div class="w3-card-2 w3-margin w3-margin-top">
-    <div class="w3-container w3-padding">
-      <h4>Website Map</h4>
-    </div>
-    <div class="w3-container w3-white">
-        <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>
-        <a style="text-decoration: none" href="{% url 'home_page' %}">
-            Home page »
-        </a>
-        </b></button></p>
-        <p><button class="w3-button w3-padding-large w3-white w3-border"><b>
-         <a style="text-decoration: none" href="{% url 'about' %}">
-            About »
-         </a>
-        </b></button></p>
-        <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>
-        <a style="text-decoration: none" href="{% url 'talks' %}">
-            Talks »
-        </a>
-        </b></button></p>
-        <p><button class="w3-button w3-padding-large w3-white w3-border" ><b>
-        <a style="text-decoration: none" href="{% url 'archives' %}">
-            Archives »
-        </a>
-        </b></button></p>
-    </div>
-  </div>
-
-<!-- END Introduction Menu -->
-</div>
-
-<!-- END GRID -->
-</div><br>
-
-    <!-- Footer -->
-<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-  {% if post_list.has_previous %}
-  <button class="w3-button w3-black  w3-padding-large w3-margin-bottom">
-    <a href="?page={{ post_list.previous_page_number }}">
-    Previous
-    </a>
-  </button>
-  {% endif %}
-  {% if post_list.has_next %}
-  <button class="w3-button w3-black w3-padding-large w3-margin-bottom">
-    <a href="?page={{ post_list.next_page_number }}">Next »</a>
-  </button>
-  {% endif %}
-  <p align="center">@Copyright Leon Chen
-  <p align="center">Contact me ||<a href="https://www.w3schools.com/w3css/default.asp" target="_blank">Github</a>||</p>
-  <p>
-</p>
-</footer>
-
+			<h5 align="center">Contact me</h5>
+			<ul class="social-links" align="center">
+               <a href="https://www.facebook.com/profile.php?id=100000311245666"><i class="fa fa-facebook"></i></a>
+               <a href="#"><i class="fa fa-twitter"></i></a>
+               <a href="#"><i class="fa fa-google-plus"></i></a>
+               <a href="https://github.com/LeonChen66/"><i class="fa fa-github-square"></i></a>
+               <a href="#"><i class="fa fa-instagram"></i></a>
+               <a href="#"><i class="fa fa-flickr"></i></a>
+               <a href="#"><i class="fa fa-skype"></i></a>
+            </ul>
+						<p align="center">© Copyright 2017 Simple Blog.   Design by Leon.</p>
+		</footer>
+	</div>
 </body>
 </html>

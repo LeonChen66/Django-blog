@@ -1,3 +1,10 @@
+	footer .social-links { margin-bottom: 36px; }
+	footer .social-links{
+		font-size: 28px;
+		line-height: 42px;
+		margin: 0 8px;
+	}
+
 /* W3.CSS 4.04 Apr 2017 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
